@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /retrieveData:
+ * /api/data:
  *   get:
  *     summary: Retrieve data from a public API.
  *     description: Retrieve data from a public API and optionally filter it by category.

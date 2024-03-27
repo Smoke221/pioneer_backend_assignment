@@ -7,7 +7,7 @@ const web3 = new Web3(
 );
 /**
  * @swagger
- * /retrieveBal:
+ * /ethereum/balance:
  *   get:
  *     summary: Retrieve Ethereum balance for a given address.
  *     description: Retrieve the Ethereum balance for a given address from the Ethereum blockchain.

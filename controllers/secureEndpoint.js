@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /limitAccess:
+ * /secure/data:
  *   get:
  *     summary: Allows only authenticated users.
  *     description: Limit access to a secure zone. Access to this endpoint may be restricted based on user permissions.
