@@ -4,7 +4,37 @@ const { userModel } = require("../models/userModel");
 
 // Maintain a blacklist of invalidated tokens
 const tokenBlacklist = new Set();
-
+/**
+ * @swagger
+ * /user/register:
+ *   post:
+ *     summary: Register a new user.
+ *     description: Register a new user with a unique email and hashed password.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *     responses:
+ *       201:
+ *         description: User registration successful.
+ *       400:
+ *         description: User with the same email already exists.
+ *       500:
+ *         description: Internal server error.
+ */
 async function userRegister(req, res) {
   try {
     const { name, email, password } = req.body;
@@ -33,7 +63,46 @@ async function userRegister(req, res) {
       .json({ message: "Internal server error", error: err.message });
   }
 }
-
+/**
+ * @swagger
+ * /user/login:
+ *   post:
+ *     summary: Login with existing credentials.
+ *     description: Login with existing user credentials to obtain a JWT token for authentication.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *             required:
+ *               - email
+ *               - password
+ *     responses:
+ *       200:
+ *         description: Successfully logged in.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Logged in
+ *                 token:
+ *                   type: string
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *       401:
+ *         description: Invalid credentials or wrong password.
+ *       500:
+ *         description: Internal server error.
+ */
 async function userLogin(req, res) {
   try {
     const { email, password } = req.body;
@@ -70,6 +139,22 @@ async function userLogin(req, res) {
       .json({ message: "Internal server error", error: err.message });
   }
 }
+/**
+ * @swagger
+ * /user/logout:
+ *   post:
+ *     summary: Logout from the application.
+ *     description: Invalidate the user's JWT token to log them out from the application.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully logged out.
+ *       401:
+ *         description: Unauthorized or no token provided.
+ *       500:
+ *         description: Internal server error.
+ */
 async function userLogout(req, res) {
   try {
     // Get the token from the request headers
