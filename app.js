@@ -6,11 +6,16 @@ const { apiDataRouter } = require("./routes/apiData");
 const { secureRouter } = require("./routes/secureRoute");
 const { ethereumRouter } = require("./routes/ethereumBal");
 // const cors = require("cors");
+const swaggerUi = require("swagger-ui-express")
+const swaggerSpec = require("./swagger")
 
 require("dotenv").config();
 const app = express();
 app.use(express.json());
 // app.use(cors());
+app.set("trust proxy", true);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.get("/", (req, res) => {
   res.send(`
