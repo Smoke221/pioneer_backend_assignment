@@ -1,3 +1,37 @@
+/**
+ * @swagger
+ * /retrieveData:
+ *   get:
+ *     summary: Retrieve data from a public API.
+ *     description: Retrieve data from a public API and optionally filter it by category.
+ *     parameters:
+ *       - in: query
+ *         name: category
+ *         description: Optional category filter.
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: limit
+ *         description: Optional limit for the number of results.
+ *         schema:
+ *           type: integer
+ *           minimum: 1
+ *     responses:
+ *       200:
+ *         description: Retrieved data successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/PublicApiEntry'
+ *       400:
+ *         description: Invalid limit parameter.
+ *       404:
+ *         description: No entries found for the specified category.
+ *       500:
+ *         description: Internal server error.
+ */
 async function retrieveData(req, res) {
   try {
     // Fetch data from the public API
