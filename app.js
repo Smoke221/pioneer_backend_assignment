@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send(`
-          <h1>Welcome to the Quiz Application.</h1>
+          <h1>Welcome to the Pioneer Assignment.</h1>
     `);
 });
 
